@@ -4,15 +4,13 @@
   <parent>
     <groupId>org.objenesis</groupId>
     <artifactId>objenesis-parent</artifactId>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.5-SNAPSHOT</version>
   </parent>
   <artifactId>objenesis</artifactId>
 
   <name>Objenesis</name>
   <description>A library for instantiating Java objects</description>
   <url>http://objenesis.org</url>
-
-  <dependencies />
 
   <build>
     <plugins>
@@ -35,8 +33,6 @@
         <configuration>
           <instructions>
             <Import-Package>
-            COM.jrockit.reflect;resolution:=optional,
-            jrockit.vm;resolution:=optional,
             COM.newmonics.PercClassloader;resolution:=optional,
             sun.misc;resolution:=optional,
             sun.reflect;resolution:=optional

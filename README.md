@@ -16,9 +16,8 @@ Environment setup
 -----------------
 
 I'm using:
-- Eclipse 4.3.2 (Kepler Service Release 2)
-- Maven 3.2.3
-- IntelliJ 14 Ultimate (thanks to JetBrains for the license)
+- Maven 3.3.9
+- IntelliJ 15 Ultimate (thanks to JetBrains for the license) (it should also work with Eclipse)
 
 To configure your local workspace:
 - Import the Maven parent project to Eclipse or IntelliJ
@@ -55,7 +54,11 @@ To run special builds
 
 ### Run the benchmarks
 
-`mvn package -Pbenchmark`
+```bash
+mvn package -Pbenchmark
+cd benchmark
+./launch.sh
+```
 
 ### Generate the website
 
@@ -96,12 +99,30 @@ To update the license
 --------------------------------------------------------------------------------------
 `mvn validate license:format -Pall`
 
-To release (to be tested)
+To release
 --------------------------------------------------------------------------------------
-`mvn release:prepare -Pfull,android,release`
-`mvn release:perform -Pfull,android,release`
+* Add the release notes in `website/site/content/notes.html`
+* Add this server to your `settings.xml`
+```
+<server>
+   <id>bintray</id>
+   <username>your-user-name</username>
+   <password>your-api-key</password>
+</server> 
+```
+
+* Set `gpg_passphrase`, `bintray_api_key` and `bintray_user` environment variables
+* Launch an Android device (virtual or physical)
+* Add release notes on the tag in GitHub 
+* Launch `./deploy.sh version`
+* Answer the questions (normally, just acknowledge the proposed default)
+* Flag the bin, tck and tck-android as "Show in download list" in bintray
+* Add the bin, tck and tck-android jars to the release in GitHub
+* Close the milestone in GitHub and create the new one
+* Go to https://bintray.com/easymock/maven/objenesis to publish the Maven artifacts
+* Sync to Maven central
 
 Deploy the website
 --------------------------------------------------------------------------------------
-- Generate it
-- Copy the result to the gh-pages branch
+* Make sure the pom is at the version you want to release
+* Launch `./deploy_website.sh`
